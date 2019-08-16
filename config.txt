@@ -1,36 +1,29 @@
-﻿############################
-#### CONFIGURATION FILE ####
-############################
+﻿########################################################
+################# CONFIGURATION FILE ###################
+########################################################
 
-# Databases path:
+##STUDENT_AUTHENTICATION##
 
-#STUDENT_AUTHENTICATION
-SA_Server=?
-SA_Database=?
-SA_UserId=?
-SA_Password=?
+SA_StringConn=?
 SA_PATH_JSON_FILE=?
 
-#STUDENT_APP
-S_Server=?
-S_Database=?
-S_UserId=?
-S_Password=?
+##STUDENT_APP##
+
+S_StringConn=?
 S_PATH_JSON_FILE=?
 
-#EXTERNAL
-E_Server=?
-E_Database=?
-E_UserId=?
-E_Password=?
-E_StringConn=Server=?
+##EXTERNAL##
+
+E_StringConn=?
 E_PATH_XML_FILE=?
 
-# STRING CONNECTION EXAMPLES
-# String Connection - JSON - Example
-# DevelopmentConnection - Server=XXXXX;Database=XXXXX;User Id=XXXXX;Password=XXXXX
-# WEB.CONFIG - Example - <add name="CORE_CONNECTION" connectionString="Server=XXXXX;Database=XXXXX;User Id=XXXXX;Password=XXXXX;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+############# STRING CONNECTION EXAMPLES ###############
 
-############################
-########### END ############
-############################
+#STRING CONNECTION EXAMPLES
+#String Connection - JSON - Example
+#DevelopmentConnection - Server=XXXXX;Database=XXXXX;User Id=XXXXX;Password=XXXXX
+#WEB.CONFIG - Example - <add name="CORE_CONNECTION" connectionString="Server=XXXXX;Database=XXXXX;User Id=XXXXX;Password=XXXXX;MultipleActiveResultSets=True" providerName="System.Data.SqlClient" />
+
+########################################################
+######################### END ##########################
+########################################################
