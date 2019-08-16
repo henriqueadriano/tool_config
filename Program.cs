@@ -3,9 +3,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Text;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using System.Linq;
 using System.Xml;
 
 namespace ConsoleApp1
@@ -14,11 +11,11 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            /*
+            
             ListObjectInfo listObjectInfo = ReadConfigFile();
             LoadReplaceJsonFile(listObjectInfo);
-            */
-            LoadXMLFile();
+            
+            //LoadXMLFile();
         }
 
         static void LoadXMLFile()
