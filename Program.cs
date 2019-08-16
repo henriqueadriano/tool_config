@@ -11,27 +11,8 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            
             ListObjectInfo listObjectInfo = ReadConfigFile();
             LoadReplaceJsonFile(listObjectInfo);
-            
-            //LoadXMLFile();
-        }
-
-        static void LoadXMLFile()
-        {
-            string xmlPath = @"C:\aspenCode_\agisms_server\Aspen_Code\External.Resource.Server.API\Connections.config";
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlPath);
-            XmlNodeList nodeList = doc.GetElementsByTagName("connectionStrings");
-            foreach (XmlNode item in nodeList.Item(0).ChildNodes)
-            {
-                var log = (XmlNode)item.Attributes.GetNamedItem("name");
-                if (log.Value.Equals("CORE_CONNECTION"))
-                {
-                    var connectionString = (XmlNode)item.Attributes.GetNamedItem("connectionString");
-                }
-            }
         }
 
         private static void CreateJsonFile(ObjFields objFileds)
