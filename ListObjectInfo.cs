@@ -6,5 +6,6 @@ namespace ConsoleApp1
     {
         public StudentAuthObj StudentAuthObj { get; set; }
         public StudentObj StudentObj { get; set; }
+        public ExternalObject ExternalObject { get; set; }
     }
 }

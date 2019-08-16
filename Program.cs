@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Text;
+using System.Xml;
 
 namespace ConsoleApp1
 {
@@ -11,7 +12,7 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             ListObjectInfo listObjectInfo = ReadConfigFile();
-            LoadReplaceJsonFile(listObjectInfo);
+            LoadReplaceFile(listObjectInfo);
         }
 
         private static void CreateJsonFile(ObjFields objFileds)
@@ -33,12 +34,30 @@ namespace ConsoleApp1
             }
         }
 
-        private static void LoadReplaceJsonFile(ListObjectInfo listObjectInfo)
+        private static void LoadReplaceFile(ListObjectInfo listObjectInfo)
         {
             if (listObjectInfo.StudentAuthObj.IsValid)
                 CreateJsonFile(listObjectInfo.StudentAuthObj);
             if (listObjectInfo.StudentObj.IsValid)
                 CreateJsonFile(listObjectInfo.StudentObj);
+            if (listObjectInfo.ExternalObject.IsValid)
+                CreateXMLFile(listObjectInfo.ExternalObject);
+        }
+
+        private static void CreateXMLFile(ExternalObject externalObject)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(externalObject.path);
+            XmlNodeList nodeList = doc.GetElementsByTagName("connectionStrings");
+            foreach (XmlNode item in nodeList.Item(0).ChildNodes)
+            {
+                var log = (XmlNode)item.Attributes.GetNamedItem("name");
+                if (log.Value.Equals("CORE_CONNECTION"))
+                {
+                    item.Attributes.GetNamedItem("connectionString").Value = externalObject.StringConn;
+                }
+            }
+            doc.Save(externalObject.path);
         }
 
         private static ListObjectInfo ReadConfigFile()
@@ -49,11 +68,41 @@ namespace ConsoleApp1
 
             StudentObj studentObj = FillStudentFileData(lines);
 
+            ExternalObject externalObject = FillExternalFileData(lines);
+
             return new ListObjectInfo
             {
                 StudentAuthObj = studentAuthObj,
-                StudentObj = studentObj
+                StudentObj = studentObj,
+                ExternalObject = externalObject
             };
+        }
+
+        private static ExternalObject FillExternalFileData(string[] lines)
+        {
+            bool isValid = false;
+
+            ExternalObject saObj = new ExternalObject();
+
+            foreach (string line in lines)
+            {
+                if (line.Contains("E_StringConn"))
+                {
+                    string value = line.Substring(line.IndexOf("=") + 1).Trim();
+                    isValid = value != string.Empty && value != "?";
+                    saObj.StringConn = line.Substring(line.IndexOf("=") + 1).Trim();
+                }
+                if (line.Contains("E_PATH_XML_FILE"))
+                {
+                    string value = line.Substring(line.IndexOf("=") + 1).Trim();
+                    isValid = value != string.Empty && value != "?";
+                    saObj.path = line.Substring(line.IndexOf("=") + 1).Trim();
+                }
+            }
+
+            saObj.IsValid = isValid;
+
+            return saObj;
         }
 
         private static StudentObj FillStudentFileData(string[] lines)

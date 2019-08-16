@@ -12,5 +12,6 @@ namespace ConsoleApp1.models
         public string password { get; set; }
         public string path { get; set; }
         public bool IsValid { get; set; }
+        public string StringConn { get; set; }
     }
 }

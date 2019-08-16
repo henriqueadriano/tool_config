@@ -23,6 +23,7 @@ E_Server=?
 E_Database=?
 E_UserId=?
 E_Password=?
+E_StringConn=Server=?
 E_PATH_XML_FILE=?
 
 # STRING CONNECTION EXAMPLES
